@@ -8,8 +8,6 @@ import com.gimnasio.VOs.Classes;
 import com.gimnasio.VOs.User;
 
 public class BookService {
-    private static UserService us = new UserService();
-    private static ClassesService cs= new ClassesService();
     private List<Books> books= new ArrayList<>();
 
     public void getBooks(){
@@ -18,11 +16,25 @@ public class BookService {
         }
     }
 
+    public Books getBookById(int id){
+        Books existBook= books.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
+        
+        if (existBook != null) {
+            System.out.println("ID: " +id+ " Nombre de la clase: "+ existBook.getclasse().getClassName()+ " Persona:"+ existBook.getUser().getName());
+        }else{
+            System.out.println("La reserva con ID: " + id+ " no ha sido encontrada!");
+        }
+
+        return existBook;
+    }
+
     public void addBook( int id, User user, Classes c){
+
 
         // verify if the user has the membresy active,so we can book his class
         if (!user.isMembresyStatus()) {
             System.out.println("El usuario no tiene membresia activada.");
+            return;
         }
 
         // veify if the class has gotten its maximum capacity 
@@ -30,6 +42,7 @@ public class BookService {
         long bookClass = books.stream().filter(b -> b.getclasse().getId() == c.getId()).count();
         if (bookClass >= c.getMaximumCapacity()) {
             System.out.println("La clase ya está llena.");
+             return;
         }
 
         // verify if the user had not booked the class.
@@ -38,6 +51,7 @@ public class BookService {
 
         if (isAlreadBooked) {
             System.out.println("El usuario ya ha reservado esta clase.");
+             return;
         }
 
         // if its avalaible to book the class, booked !!
@@ -46,6 +60,20 @@ public class BookService {
         System.out.println("Reserva exitosa para: "+ user.getName()+ " En la clase: "+ c.getClassName()+ "el:"+ c.getDate());
 
         
+    }
+
+
+    public void deleteBook(int id){
+
+        Books bookToRemove = getBookById(id);
+
+        if (bookToRemove != null) {
+            System.out.println("Eliminando reserva ............");
+            books.remove(bookToRemove);
+        }else{
+            System.out.println("La reserva no fue encontrada!");
+        }
+
     }
 
 }
