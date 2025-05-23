@@ -3,10 +3,15 @@ package com.gimnasio.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gimnasio.VOs.Classes;
+import com.gimnasio.Exceptions.NotFoundException;
+import com.gimnasio.Model.Classes;
 
 public class ClassesService {
     private List<Classes> listClasses = new ArrayList<>();
+
+    public ClassesService (List<Classes> listClasses){
+        this.listClasses = listClasses;
+    }
 
      public void getClasses(){
         for (Classes classes : listClasses) {
@@ -25,7 +30,7 @@ public class ClassesService {
         }
     }
 
-    public Classes getClassesById(String id){
+    public Classes getClassesById(String id)throws NotFoundException{
         Classes findClasses = listClasses.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
 
         if (findClasses != null) {
@@ -33,13 +38,13 @@ public class ClassesService {
              System.out.println("Nombre de clase: "+ findClasses.getClassName()+ " Fecha: "+ findClasses.getDate()+" ID: "+ findClasses.getId()+
              " Capacidad: " + findClasses.getMaximumCapacity());
         }else{
-            System.out.println("La clase con id: "+ id+ " no ha sido encontrada.");
+         throw new NotFoundException("La clase con id: "+ id+ " no ha sido encontrada.");
         }
 
         return findClasses;
     }
 
-    public void deleteClassesById(String id){
+    public void deleteClassesById(String id)throws NotFoundException{
         Classes classeToRemove= getClassesById(id);
 
         if (classeToRemove != null) {
