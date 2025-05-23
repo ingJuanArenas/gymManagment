@@ -1,4 +1,4 @@
-package com.gimnasio.VOs;
+package com.gimnasio.Model;
 
 
 public class User {

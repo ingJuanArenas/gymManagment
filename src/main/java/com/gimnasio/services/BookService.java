@@ -3,9 +3,10 @@ package com.gimnasio.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gimnasio.VOs.Books;
-import com.gimnasio.VOs.Classes;
-import com.gimnasio.VOs.User;
+import com.gimnasio.Exceptions.NotFoundException;
+import com.gimnasio.Model.Books;
+import com.gimnasio.Model.Classes;
+import com.gimnasio.Model.User;
 
 public class BookService {
     private List<Books> books= new ArrayList<>();
@@ -16,13 +17,13 @@ public class BookService {
         }
     }
 
-    public Books getBookById(int id){
+    public Books getBookById(int id) throws NotFoundException{
         Books existBook= books.stream().filter(b -> b.getId() == id).findFirst().orElse(null);
         
         if (existBook != null) {
             System.out.println("ID: " +id+ " Nombre de la clase: "+ existBook.getclasse().getClassName()+ " Persona:"+ existBook.getUser().getName());
         }else{
-            System.out.println("La reserva con ID: " + id+ " no ha sido encontrada!");
+            throw new NotFoundException("La reserva con ID: " + id+ " no ha sido encontrada!");
         }
 
         return existBook;
@@ -63,7 +64,7 @@ public class BookService {
     }
 
 
-    public void deleteBook(int id){
+    public void deleteBook(int id)throws NotFoundException{
 
         Books bookToRemove = getBookById(id);
 

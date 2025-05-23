@@ -2,10 +2,15 @@ package com.gimnasio.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gimnasio.VOs.User;
+import com.gimnasio.Exceptions.NotFoundException;
+import com.gimnasio.Model.User;
 
 public class UserService {
     private List<User> users = new ArrayList<>();
+
+        public UserService(List<User> users) {
+        this.users = users;
+    }
 
      public void getUsers(){
         for (User user : users) {
@@ -14,14 +19,14 @@ public class UserService {
         }
     }
 
-     public User getUserById(int id){
+     public User getUserById(int id)throws NotFoundException{
        User findUser= users.stream().filter( u-> u.getId() == id).findFirst().orElse(null);
         if (findUser != null) {
             System.out.println("Usuario encontrado .........");
             System.out.println("Nombre: "+ findUser.getName()+ " Email: "+ findUser.getEmail()+" ID: "+ findUser.getId()+
              " Estado: "+ (findUser.isMembresyStatus() ? "ACTIVA" : "VENCIDA"));
         }else{
-            System.out.println("Usuario con id: "+ id + " no encontrado");
+            throw new NotFoundException("Usuario con id: "+ id + " no encontrado");
         }
          return findUser;
     }
@@ -38,7 +43,7 @@ public class UserService {
 
 
 
-    public void deleteUser(int id){
+    public void deleteUser(int id)throws NotFoundException{
             User userToRemove = getUserById(id);
 
             if (userToRemove != null) {
@@ -48,6 +53,7 @@ public class UserService {
                 System.out.println("No existe usuario con id: "+ id);
             }
         }
+
 
     }
 
