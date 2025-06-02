@@ -1,12 +1,12 @@
 package com.gimnasio.Model;
 
-public class Books {
+public class Bookings {
     private int id;
     private User user;
     private Classes classe;
 
     
-    public Books(int id, User user, Classes classe) {
+    public Bookings(int id, User user, Classes classe) {
         this.id = id;
         this.user = user;
         this.classe = classe;
