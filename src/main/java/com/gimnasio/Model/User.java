@@ -5,14 +5,14 @@ public class User {
     int id;
     String name;
     String email;
-    boolean membresyStatus;
+    boolean membrershipStatus;
     
 
-    public User(int id, String name, String email, boolean membresyStatus) {
+    public User(int id, String name, String email, boolean membershipStatus) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.membresyStatus = membresyStatus;
+        this.membrershipStatus = membershipStatus;
     }
 
 
@@ -46,15 +46,13 @@ public class User {
     }
 
 
-    public boolean isMembresyStatus() {
-        return membresyStatus;
+    public boolean isMembrershipStatus() {
+        return membrershipStatus;
     }
 
 
-    public void setMembresyStatus(boolean membresyStatus) {
-        this.membresyStatus = membresyStatus;
+    public void setMembrershipStatus(boolean membrershipStatus) {
+        this.membrershipStatus = membrershipStatus;
     }
-
-    
 
 }

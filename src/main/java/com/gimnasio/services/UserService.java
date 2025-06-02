@@ -15,7 +15,7 @@ public class UserService {
      public void getUsers(){
         for (User user : users) {
             System.out.println("Nombre: "+ user.getName()+ " Email: "+ user.getEmail()+" ID: "+ user.getId()+
-             " Estado: "+ (user.isMembresyStatus() ? "ACTIVA" : "VENCIDA"));
+             " Estado: "+ (user.isMembrershipStatus() ? "ACTIVA" : "VENCIDA"));
         }
     }
 
@@ -24,7 +24,7 @@ public class UserService {
         if (findUser != null) {
             System.out.println("Usuario encontrado .........");
             System.out.println("Nombre: "+ findUser.getName()+ " Email: "+ findUser.getEmail()+" ID: "+ findUser.getId()+
-             " Estado: "+ (findUser.isMembresyStatus() ? "ACTIVA" : "VENCIDA"));
+             " Estado: "+ (findUser.isMembrershipStatus() ? "ACTIVA" : "VENCIDA"));
         }else{
             throw new NotFoundException("Usuario con id: "+ id + " no encontrado");
         }
